@@ -1,33 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { findPets } from "../../services/PetServices";
 import styles from "./Pets.module.scss";
-
+import axios from "axios";
 export const SearchBox = () => {
+
+//     function addTowatchlist(){
+//         var id1 = document.getElementById("id");
+//         console.log(id1.value);
+//         axios.post('localhost:8080/api/v2/addtowatchlist', {
+//             id: id1.value,
+//           })
+//           .then(function (response) {
+//             console.log("working");
+//           })
+//           .catch(function (error) {
+//             return error;
+//           });
+// //         fetch('localhost:8080/api/v2/addtowatchlist', {
+// //   method: 'POST',
+// //   headers: {
+// //     'Accept': 'application/json',
+// //     'Content-Type': 'application/json'
+// //   },
+// //   body: JSON.stringify({
+// //     id:id1
+// //   })
+// // });
+
+//     }
     
   return (
+    <>
+    <h1>Add watchlist</h1>
     <form
-    id="addSecurity"
-    action="http://localhost:8080/api/v1/dogs"
-    method="post">
-    <h2>
-        Add securities
-    </h2>
-    <label>
-        <span class="text">ID:</span>
-        <input type="number" name="id"/><br/>
-    </label>
-    <br/>
-    <label>
-        <span class="text">Name</span>
-        <input type="text" name="name"/><br/>
-    </label><br/>
-    <label>
-        <span class="text">Age</span>
-        <input type="number" name="age"/><br/>
-    </label><br/>
-    <div class="align-right">
-        <button type="submit">Submit</button>
-    </div>
-</form>
+                    id="main-login"
+                    action="http://localhost:8080/api/v2/addtowatchlist/"
+                    method="post">
+                    <h2>
+                        Admin UI Login
+                    </h2>
+                    <label>
+                        <span class="number">ID:</span>
+                        <input type="number" name="id"/><br/>
+                    </label>
+                    <br/>
+                    
+                    <div class="align-right">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+    </>
+
+  
   )
 };
