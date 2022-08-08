@@ -14,7 +14,7 @@ import java.util.*;
 public class Securities {
 
 	@Id
-	private long id;
+	public long id;
 	private long isin;
 	private long cusip;
 	private String issuer;
