@@ -85,12 +85,21 @@ public class SecuritiesController {
 
 
 
-    @GetMapping("/securities/{id}")
-    public ResponseEntity < Securities > getSecuritiesById(@PathVariable(value = "id") Long id)
+  @GetMapping("/securities/{id}")
+    public List < Securities > getSecuritiesById(@PathVariable(value = "id") Long id)
     throws ResourceNotFoundException {
-       Securities securities = securitiesRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Security not found for id " + id));
-        return ResponseEntity.ok().body(securities);
+      List < Securities > secur = securitiesRepository.findAll();
+      List < Securities > result=new ArrayList<Securities>(); 
+      for(int i=0;i<secur.size();i++){
+        if(secur.get(i).id==id){
+            result.add(secur.get(i));
+            break;
+        }
+
+      }
+            
+            
+        return result;
     }
     @GetMapping("/securities/{date1}/{date2}")
     public List < Securities > getSecuritiesById(@PathVariable(value = "date1")String date1,@PathVariable(value = "date2") String date2)
