@@ -59,8 +59,9 @@ public class SecuritiesController {
     }
     
     // List < Securities >
-    @PostMapping("/addtowatchlist")
-    public ResponseEntity<Void> addWatchlist(@Valid  Long id) throws ResourceNotFoundException {
+    @CrossOrigin
+    @GetMapping("/addtowatchlist/{id}")
+    public List < Securities > addWatchlist(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         
         if(!this.set.contains(id)){
             Securities securities = securitiesRepository.findById(id)
@@ -71,8 +72,8 @@ public class SecuritiesController {
 
         }
          
-        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("http://localhost:3000")).build();
-        // return this.watchlist;
+        //return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("http://localhost:3000")).build();
+        return this.watchlist;
     }
 
         @GetMapping("/watchlist")
@@ -102,7 +103,7 @@ public class SecuritiesController {
         return result;
     }
     @GetMapping("/securities/{date1}/{date2}")
-    public List < Securities > getSecuritiesById(@PathVariable(value = "date1")String date1,@PathVariable(value = "date2") String date2)
+    public List < Securities > getSecuritiesByDateRange(@PathVariable(value = "date1")String date1,@PathVariable(value = "date2") String date2)
     throws ResourceNotFoundException,Exception {
         Date d1=new SimpleDateFormat("yyyy-MM-dd").parse(date1);
         Date d2=new SimpleDateFormat("yyyy-MM-dd").parse(date2);
@@ -178,7 +179,7 @@ public class SecuritiesController {
         return ResponseEntity.ok(updatedSecurities);
     }
 
-    @DeleteMapping("/securities/{id}")
+    @GetMapping("/deletesecurities/{id}")
     public Map < String, Boolean > deleteSecurity(@PathVariable(value = "id") Long id)
     throws Exception {
     	Securities security = securitiesRepository.findById(id)
