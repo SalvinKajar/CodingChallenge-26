@@ -178,15 +178,15 @@ public class SecuritiesController {
         return ResponseEntity.ok(updatedSecurities);
     }
 
-    // @DeleteMapping("/dogs/{id}")
-    // public Map < String, Boolean > deleteDog(@PathVariable(value = "id") Long id)
-    // throws Exception {
-    // 	Dogs dogs = dogsRepository.findById(id)
-    //         .orElseThrow(() -> new ResourceNotFoundException("Dog not found for this id :: " + id));
+    @DeleteMapping("/securities/{id}")
+    public Map < String, Boolean > deleteSecurity(@PathVariable(value = "id") Long id)
+    throws Exception {
+    	Securities security = securitiesRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Dog not found for this id :: " + id));
 
-    // 	dogsRepository.delete(dogs);
-    //     Map < String, Boolean > response = new HashMap <>();
-    //     response.put("deleted", Boolean.TRUE);
-    //     return response;
-    // }
+    	securitiesRepository.delete(security);
+        Map < String, Boolean > response = new HashMap <>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
 }
