@@ -4,6 +4,7 @@ import { getMaturedSecurities} from "../../services/getMaturedSecurities";
 import { getSecuritiesByID} from "../../services/getSecuritiesByID";
 import { betweenDates } from "../../services/BetweenDates";
 import { getWatchlist } from "../../services/getWatchlist";
+import {getTradesBySecurity} from "../../services/getTradesBySecurity";
 import Button from "react-bootstrap/Button";
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
@@ -14,7 +15,7 @@ import Col from 'react-bootstrap/Col';
 import { FaEdit,FaTrashAlt } from 'react-icons/fa';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
-
+import { Navigate } from 'react-router-dom';
 import styles from "./Pets.module.scss";
 
 
@@ -24,6 +25,9 @@ export const Pets = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    // const handleCloseEdit = () => setShow(false);
+    // const handleShowEdit = () => setShow(true);
 
     useEffect(() => {
     findPets()
@@ -54,7 +58,7 @@ export const Pets = () => {
 
   function sendSecurity(){
     const security={
-      "id": document.getElementById("id1").value,
+      "id": 0,
       "isin": document.getElementById("isin").value,
       "cusip": document.getElementById("cusip").value,
       "issuer": document.getElementById("issuer").value,
@@ -83,7 +87,6 @@ export const Pets = () => {
 
   function deleteSecurity(id1) {
     console.log("working "+id1);
-    //const security={id:id1};
     axios.get(`http://localhost:8080/api/v2/deletesecurities/${id1}`)
       .then(window.location.reload(false));
   }
@@ -92,7 +95,7 @@ export const Pets = () => {
     const security = {"id":document.getElementById("watchlist").value};
     console.log(security);
     axios.get(`http://localhost:8080/api/v2/addtowatchlist/${security.id}`)
-    .then(console.log("watchlist"));
+    .then(window.location.reload(false));
   }
 
   function gettingWatchlist() {
@@ -102,9 +105,30 @@ export const Pets = () => {
       });
   }
 
-  return (
+  function editChanges(){
+    console.log("edit");
+  }
+
+  function getTradesForSecurity() {
+    const security = {"id":document.getElementById("tradeSecurityID").value}
+    getTradesBySecurity(security.id)
+    .then(({data}) => {
+      setPets(data);
+      });
+  }
+
+  const token=localStorage.getItem("token")
+
+           
+    
+  if(token!=null){
+    
+
+return (
     <>
+    
          <Container style={{ padding: '2rem 1rem 1rem 1rem' }}>
+         <h1>Securities</h1>
         <div>
         
           <Row>
@@ -127,23 +151,7 @@ export const Pets = () => {
         </Card>
         </Col>
 
-        <Col>
-        <Card border="light" style={{ width: '18rem' }}>
-          <Card.Header>Get securities for a user</Card.Header>
-          <Card.Body>
-            <Form>
-              <Form.Group className="mb-3" controlId="getSecuritiesByUserID">
-                {/* <Form.Label></Form.Label> */}
-                <Form.Control type="number" placeholder="Enter user ID" />
-              </Form.Group>
-              
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
-        </Col>
+      
 
         <Col>
         <Card border="light" style={{ width: '18rem' }}>
@@ -152,9 +160,9 @@ export const Pets = () => {
             <Form>
               <Form.Group className="mb-3" controlId="getSecuritiesByTrade">
                 {/* <Form.Label></Form.Label> */}
-                <Form.Control type="number" placeholder="Enter security ID" />
+                <Form.Control type="number" placeholder="Enter security ID" id="tradeSecurityID" />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" onClick={getTradesForSecurity}>
                 Submit
               </Button>
             </Form>
@@ -204,28 +212,32 @@ export const Pets = () => {
           </Col>
         </Row>
         
-        
+        <Row>
+          <Col>
         <Button variant="primary" onClick={handleShow}>
           Create a new security
         </Button>
+        </Col>
 
+        <Col>
         <Button variant="primary" type="submit" onClick={gettingMaturedSecurities}>
           Matured securities
         </Button>
+        </Col>
 
+        <Col>
         <Button variant="primary" type="submit" onClick={gettingWatchlist}>
           Get watchlist
         </Button>
+        </Col>
+        </Row>
+
         <Modal show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Create security</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form >
-          <Form.Group className="mb-3" controlId="formBasicEmail" >
-            {/* <Form.Label>ID</Form.Label> */}
-            <Form.Control type="number" placeholder="Enter ID" id="id1"/>
-          </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             {/* <Form.Label>ISIN</Form.Label> */}
             <Form.Control type="number" placeholder="Enter ISIN" id="isin"/>
@@ -256,7 +268,7 @@ export const Pets = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             {/* <Form.Label></Form.Label> */}
-            <Form.Control type="number" placeholder="Enter status" id="status"/>
+            <Form.Control type="text" placeholder="Enter status" id="status"/>
           </Form.Group>
         </Form>
         </Modal.Body>
@@ -273,7 +285,7 @@ export const Pets = () => {
         <div>
 
           <div>
-            <Table striped bordered hover variant="dark">
+            <Table striped bordered hover variant="dark"  style={{marginTop:"20px"}}>
             
               <thead>
               <tr>
@@ -297,15 +309,16 @@ export const Pets = () => {
                 <td>{pet.isin}</td>
                 <td>{pet.cusip}</td>
                 <td>{pet.issuer}</td>
-                <td>{pet.maturitydate.slice(0,10)}</td>
+                <td>{new Date(pet.maturitydate).toLocaleDateString()}</td>
                 <td>{pet.coupon}</td>
                 <td>{pet.type}</td>
                 <td>{pet.facevalue}</td>
                 <td>{pet.status}</td>
-                <td><FaEdit /></td>
                 <td>
                   <Button variant="primary" onClick={() => deleteSecurity(pet.id)}>Delete</Button>
                 </td>
+
+                
               </tr>
             )}
             </tbody>
@@ -317,5 +330,10 @@ export const Pets = () => {
        
         </Container>
     </>
+  
   )
+}
+else{
+  return <Navigate to="/"/>
+}
 };
