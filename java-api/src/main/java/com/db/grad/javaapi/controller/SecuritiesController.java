@@ -44,10 +44,12 @@ public class SecuritiesController {
 
     List < Securities > watchlist;
     HashSet<Long> set;
+    long id;
 
     public SecuritiesController(){
         watchlist=new ArrayList<Securities>();
         set=new HashSet();
+        id=1;
 
     }
 
@@ -155,6 +157,8 @@ public class SecuritiesController {
     }
   @PostMapping("/securities")
     public Securities createSecurities(@Valid @RequestBody Securities securities) {
+        this.id=this.id+1;
+        securities.id=id;
         return securitiesRepository.saveAndFlush(securities);
     }
 
