@@ -12,8 +12,7 @@ import Col from 'react-bootstrap/Col';
 import { FaEdit,FaTrashAlt } from 'react-icons/fa';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
-import { Navigate } from 'react-router-dom';
-
+import { Routes,BrowserRouter,Route } from 'react-router-dom';
 
 //http://localhost:8080/api/v2/trades/${trade.id}/${trade.bid}/${trade.sid}/${trade.cid}/${trade.quantity}/${trade.status}/${trade.price}/${trade.buysell}/${trade.tradedate}/${trade.settlementdate}
 export const Trades = () => {
@@ -218,7 +217,7 @@ export const Trades = () => {
   )
 }
 else{
-  return <Navigate to="/"/>
+  return window.location.href = "/";
 }
 
 };

@@ -15,7 +15,7 @@ import Col from 'react-bootstrap/Col';
 import { FaEdit,FaTrashAlt } from 'react-icons/fa';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
-import { Navigate } from 'react-router-dom';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import styles from "./Pets.module.scss";
 
 
@@ -334,6 +334,6 @@ return (
   )
 }
 else{
-  return <Navigate to="/"/>
+  return window.location.href = "/";
 }
 };

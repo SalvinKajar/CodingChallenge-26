@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Navigate } from 'react-router-dom';
+import { Routes,BrowserRouter,Route } from 'react-router-dom';
 
 export default class Login extends Component{
    constructor(props){
@@ -48,7 +48,8 @@ export default class Login extends Component{
 
     render(){
         if(this.state.loggedIn===true && this.state.isAdmin===true){
-            return <Navigate to="/securities"/>
+            // return <Routes><Route to="/securities"/></Routes>
+            window.location.href = "/securities";
         }
         
         
