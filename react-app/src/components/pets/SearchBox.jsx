@@ -34,7 +34,7 @@ export const SearchBox = () => {
     <h1>Add watchlist</h1>
     <form
                     id="main-login"
-                    action="http://localhost:8080/api/v2/addtowatchlist/"
+                    action="https://20220809t103911-dot-db-grads-7dhn-group-26.nw.r.appspot.com/api/v2/addtowatchlist/"
                     method="post">
                     <h2>
                         Admin UI Login

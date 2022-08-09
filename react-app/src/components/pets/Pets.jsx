@@ -68,7 +68,7 @@ export const Pets = () => {
       "facevalue": document.getElementById("facevalue").value,
       "status": document.getElementById("status").value
     };
-    axios.post('http://localhost:8080/api/v2/securities', security)
+    axios.post('https://20220809t103911-dot-db-grads-7dhn-group-26.nw.r.appspot.com/api/v2/securities', security)
     .then(window.location.reload(false));
   }
 
@@ -87,14 +87,14 @@ export const Pets = () => {
 
   function deleteSecurity(id1) {
     console.log("working "+id1);
-    axios.get(`http://localhost:8080/api/v2/deletesecurities/${id1}`)
+    axios.get(`https://20220809t103911-dot-db-grads-7dhn-group-26.nw.r.appspot.com/api/v2/deletesecurities/${id1}`)
       .then(window.location.reload(false));
   }
 
   function addToWatchlist(){
     const security = {"id":document.getElementById("watchlist").value};
     console.log(security);
-    axios.get(`http://localhost:8080/api/v2/addtowatchlist/${security.id}`)
+    axios.get(`https://20220809t103911-dot-db-grads-7dhn-group-26.nw.r.appspot.com/api/v2/addtowatchlist/${security.id}`)
     .then(window.location.reload(false));
   }
 

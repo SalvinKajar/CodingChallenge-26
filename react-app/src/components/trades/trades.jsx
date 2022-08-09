@@ -43,7 +43,7 @@ export const Trades = () => {
         "settlementdate": document.getElementById("settlementdate").value,
         "status": document.getElementById("status").value
       };
-      axios.post(`http://localhost:8080/api/v2/trades/${trade.id}/${trade.bid}/${trade.sid}/${trade.cid}/${trade.quantity}/${trade.status}/${trade.price}/${trade.buysell}/${trade.tradedate}/${trade.settlementdate}`)
+      axios.post(`https://20220809t103911-dot-db-grads-7dhn-group-26.nw.r.appspot.com/api/v2/trades/${trade.id}/${trade.bid}/${trade.sid}/${trade.cid}/${trade.quantity}/${trade.status}/${trade.price}/${trade.buysell}/${trade.tradedate}/${trade.settlementdate}`)
       .then(window.location.reload(false));
     }
 
