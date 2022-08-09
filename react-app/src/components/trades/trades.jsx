@@ -174,6 +174,7 @@ export const Trades = () => {
               <tr>
                 
                 <th>ID</th>
+                <th>SECURITY ID</th>
                 <th>BOOK NAME</th>
                 <th>COUNTERPARTY NAME</th>
                 <th>STATUS</th>
@@ -189,6 +190,7 @@ export const Trades = () => {
             { trades.map(trade => 
               <tr>
                 <td>{trade.id}</td>
+                <td>{trade.security.id}</td>
                 <td>{trade.book.bookname}</td>
                 <td>{trade.counterparty.name}</td>
                 <td>{trade.status}</td>

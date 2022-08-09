@@ -17,7 +17,7 @@ export const MyNavbar = () => {
       <Container>
         <Navbar bg="light" expand="lg">
           <Container>
-            <Navbar.Brand href="#home">Website Name</Navbar.Brand>
+            <Navbar.Brand href="#home">Bonds</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
