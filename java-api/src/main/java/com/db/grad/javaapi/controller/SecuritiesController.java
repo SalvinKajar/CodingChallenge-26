@@ -44,12 +44,17 @@ public class SecuritiesController {
 
     List < Securities > watchlist;
     HashSet<Long> set;
+
     Long id;
+
+    
 
     public SecuritiesController(){
         watchlist=new ArrayList<Securities>();
         set=new HashSet();
         id=1L;
+
+        
     }
 
     @GetMapping("/securities")
