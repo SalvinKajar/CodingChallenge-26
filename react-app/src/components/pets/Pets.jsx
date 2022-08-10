@@ -155,12 +155,12 @@ return (
 
         <Col>
         <Card border="light" style={{ width: '18rem' }}>
-          <Card.Header>Get all trades for a security</Card.Header>
+          <Card.Header>Get securities for a trade</Card.Header>
           <Card.Body>
             <Form>
               <Form.Group className="mb-3" controlId="getSecuritiesByTrade">
                 {/* <Form.Label></Form.Label> */}
-                <Form.Control type="number" placeholder="Enter security ID" id="tradeSecurityID" />
+                <Form.Control type="number" placeholder="Enter trade ID" id="tradeSecurityID" />
               </Form.Group>
               <Button variant="primary" onClick={getTradesForSecurity}>
                 Submit
